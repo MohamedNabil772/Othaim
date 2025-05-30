@@ -10,4 +10,13 @@
     <ProjectReference Include="..\ProductCatalog.Domain\ProductCatalog.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Features\Categories\Commands\Validators\" />
+    <Folder Include="Features\Categories\Queries\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Features\Products\Commands\Validators\" />
+    <Folder Include="Features\Products\Queries\" />
+  </ItemGroup>
+
 </Project>
