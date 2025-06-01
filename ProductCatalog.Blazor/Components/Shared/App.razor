@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components
+@using ProductCatalog.Blazor.Components.Layout
+@using Microsoft.AspNetCore.Components.Web
+
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <h1>Page not found</h1>
+            <p>Sorry, we couldn't find the requested page.</p>
+            <NavLink href="/" class="btn btn-primary">Go to Home</NavLink>
+        </LayoutView>
+    </NotFound>
+</Router>

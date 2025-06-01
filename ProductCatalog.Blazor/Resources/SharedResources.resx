@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+  </resheader>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="ProductStockQuantity" xml:space="preserve">
+    <value>Stock Quantity</value>
+  </data>
+  <data name="ProductIsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+</root>

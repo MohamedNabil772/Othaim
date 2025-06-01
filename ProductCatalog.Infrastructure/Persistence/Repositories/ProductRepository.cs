@@ -1,46 +1,61 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalog.Application.Interfaces;
 using ProductCatalog.Application.Interfaces.Repositories;
 using ProductCatalog.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductCatalog.Infrastructure.Persistence.Repositories
 {
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductRepository(AppDbContext context)
+        public ProductRepository(AppDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync() => await _context.Products.Include(p => p.Category).ToListAsync();
+        public async Task<IEnumerable<Product>> GetAllAsync(bool includeDeleted = false)
+        {
+            var query = _context.Products.Include(p => p.Category).AsQueryable();
 
-        public async Task<Product?> GetByIdAsync(Guid id) => await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
+            if (includeDeleted)
+                query = query.IgnoreQueryFilters();
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Product?> GetByIdAsync(Guid id, bool includeDeleted = false)
+        {
+            var query = _context.Products.Include(p => p.Category).AsQueryable();
+
+            if (includeDeleted)
+                query = query.IgnoreQueryFilters();
+
+            return await query.FirstOrDefaultAsync(p => p.Id == id);
+        }
 
         public async Task AddAsync(Product product)
         {
             _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Product product)
         {
             _context.Products.Update(product);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(Guid id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product is not null)
+            if (product != null)
             {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
+                product.IsDeleted = true;
+                _context.Products.Update(product);
+                await _unitOfWork.SaveChangesAsync();
             }
         }
     }

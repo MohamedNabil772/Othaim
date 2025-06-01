@@ -1,0 +1,16 @@
+﻿@page "/categories"
+@inject IStringLocalizer<ProductCatalog.Blazor.Resources.SharedResources> Loc
+
+<h3>@Loc["Categories"]</h3>
+
+<div class="container">
+    <div class="alert alert-info">
+        @Loc["This is the Categories page."]
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item">@Loc["Electronics"]</li>
+        <li class="list-group-item">@Loc["Books"]</li>
+        <li class="list-group-item">@Loc["Clothing"]</li>
+    </ul>
+</div>

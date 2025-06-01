@@ -9,8 +9,8 @@ namespace ProductCatalog.Application.Interfaces.Repositories
 {
     public interface ICategoryRepository
     {
-        Task<IEnumerable<Category>> GetAllAsync();
-        Task<Category?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Category>> GetAllAsync(bool includeDeleted = false);
+        Task<Category?> GetByIdAsync(Guid id, bool includeDeleted = false);
         Task AddAsync(Category category);
         Task UpdateAsync(Category category);
         Task DeleteAsync(Guid id);

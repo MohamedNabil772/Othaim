@@ -1,0 +1,54 @@
+﻿@page "/products"
+@using MediatR
+@using ProductCatalog.Application.DTOs
+@using ProductCatalog.Application.Features.Products.Queries
+@using ProductCatalog.Blazor.Resources
+@inject IStringLocalizer<SharedResources> Loc
+
+<div class="container mt-4">
+    <h2>@Loc["Products"]</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Loc["Name"]</th>
+                    <th>@Loc["Description"]</th>
+                    <th>@Loc["Price"]</th>
+                    <th>@Loc["Stock"]</th>
+                    <th>@Loc["Category"]</th>
+                    <th>@Loc["Status"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@($"{product.Price:C}")</td>
+                        <td>@product.StockQuantity</td>
+                        <td>@product.CategoryName</td>
+                        <td>
+                            <span class="badge @(product.IsActive ? "bg-success" : "bg-secondary")">
+                                @(product.IsActive ? Loc["Active"] : Loc["Inactive"])
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private List<ProductDto> products = new();
+
+    [Inject] private IMediator Mediator { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Mediator.Send(new GetAllProductsQuery());
+        products = result.ToList();
+    }
+}

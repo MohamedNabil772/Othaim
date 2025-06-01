@@ -33,3 +33,4 @@ namespace ProductCatalog.Infrastructure.Seeding
             }
         }
     }
+}

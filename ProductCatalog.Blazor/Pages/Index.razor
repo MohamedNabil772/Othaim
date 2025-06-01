@@ -1,0 +1,10 @@
+﻿@page "/"
+@inject IStringLocalizer<ProductCatalog.Blazor.Resources.SharedResources> Loc
+
+<h1>@Loc["WelcomeTitle"]</h1>
+<p>@Loc["WelcomeMessage"]</p>
+
+<div class="mt-4">
+    <NavLink href="products" class="btn btn-primary me-2">@Loc["ViewProducts"]</NavLink>
+    <NavLink href="categories" class="btn btn-outline-secondary">@Loc["ManageCategories"]</NavLink>
+</div>

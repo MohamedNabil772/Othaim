@@ -1,0 +1,19 @@
+﻿<select @onchange="ChangeCulture" class="form-select">
+    <option value="en-US">English</option>
+    <option value="ar-EG">العربية</option>
+</select>
+
+@code {
+    private async Task ChangeCulture(ChangeEventArgs e)
+    {
+        var culture = e.Value?.ToString();
+        if (!string.IsNullOrWhiteSpace(culture))
+        {
+            var uri = new Uri(NavigationManager.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            NavigationManager.NavigateTo($"/{culture}/{uri}", forceLoad: true);
+        }
+    }
+
+    [Inject] NavigationManager NavigationManager { get; set; } = default!;
+}
